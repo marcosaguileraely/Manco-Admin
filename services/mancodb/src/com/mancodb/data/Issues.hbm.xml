@@ -1,0 +1,42 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.mancodb.data.Issues" table="issues" catalog="mancodb" dynamic-insert="false" dynamic-update="false">
+        <id name="issueId" type="integer">
+            <column name="issue_id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="name" type="string">
+            <column name="name" not-null="true"/>
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="65535" not-null="true"/>
+        </property>
+        <property name="issueDate" type="date">
+            <column name="issue_date" length="10"/>
+        </property>
+        <property name="issueTime" type="time">
+            <column name="issue_time" length="8" not-null="true"/>
+        </property>
+        <property name="issueDateUpdate" type="timestamp">
+            <column name="issue_date_update" length="19"/>
+        </property>
+        <property name="urlPic" type="string">
+            <column name="url_pic"/>
+        </property>
+        <property name="reporter" type="string">
+            <column name="reporter" length="45"/>
+        </property>
+        <property name="prioridad" type="string">
+            <column name="prioridad" length="40"/>
+        </property>
+        <many-to-one name="users" class="com.mancodb.data.Users">
+            <column name="users_idusers" not-null="true"/>
+        </many-to-one>
+        <set name="issueHistories" inverse="true" cascade="">
+            <key>
+                <column name="issues_issue_id" not-null="true"/>
+            </key>
+            <one-to-many class="com.mancodb.data.IssueHistory"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.mancodb.data.Users" table="users" catalog="mancodb" dynamic-insert="false" dynamic-update="false">
+        <id name="idusers" type="integer">
+            <column name="idusers"/>
+            <generator class="identity"/>
+        </id>
+        <property name="noDocument" type="integer">
+            <column name="noDocument" not-null="true"/>
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="45" not-null="true"/>
+        </property>
+        <property name="lastname" type="string">
+            <column name="lastname" length="45" not-null="true"/>
+        </property>
+        <property name="user" type="string">
+            <column name="user" length="10" not-null="true"/>
+        </property>
+        <property name="pwd" type="string">
+            <column name="pwd" length="45" not-null="true"/>
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="created_date" length="19"/>
+        </property>
+        <property name="updatedDate" type="timestamp">
+            <column name="updated_date" length="19"/>
+        </property>
+        <property name="tenantId" type="integer">
+            <column name="tenant_id" not-null="true"/>
+        </property>
+        <many-to-one name="userType" class="com.mancodb.data.UserType">
+            <column name="user_type_iduser_type" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="documentType" class="com.mancodb.data.DocumentType">
+            <column name="document_type_iddocument_type" not-null="true"/>
+        </many-to-one>
+        <set name="issueses" inverse="true" cascade="">
+            <key>
+                <column name="users_idusers" not-null="true"/>
+            </key>
+            <one-to-many class="com.mancodb.data.Issues"/>
+        </set>
+    </class>
+</hibernate-mapping>

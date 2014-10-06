@@ -1,0 +1,3 @@
+html.WMApp body .gridCursor {
+    cursor: pointer !important;
+}

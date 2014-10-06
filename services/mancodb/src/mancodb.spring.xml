@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+
+<!-- Generated 10/06/2014 16:55:15
+
+Configuration for 'mancodb' database service
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+    <bean 
+        id="mancodb"
+        class="com.mancodb.Mancodb"
+        scope="singleton"
+        lazy-init="true">
+        <property name="dataServiceManager">
+            <ref bean="mancodbDataService"/>
+        </property>
+        <property name="taskManager">
+            <ref bean="mancodbTaskMgr"/>
+        </property>
+    </bean>
+
+
+    <bean 
+        class="com.wavemaker.runtime.data.spring.WMPropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:mancodb.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean 
+        id="mancodbDataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource" 
+        lazy-init="true">
+        <property name="driverClassName" value="${mancodb.driverClassName}"/>
+        <property name="url" value="${mancodb.connectionUrl}"/>
+        <property name="username" value="${mancodb.username}"/>
+        <property name="password" value="${mancodb.password}"/>
+    </bean>
+
+
+    <bean 
+        id="mancodbTxMgr" 
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+        lazy-init="true">
+        <property name="sessionFactory">
+            <ref bean="mancodbSessionFactory"/>
+        </property>
+    </bean>
+
+
+    <bean 
+        id="mancodbHibernateTemplate"
+        class="org.springframework.orm.hibernate3.HibernateTemplate"
+        lazy-init="true">
+        <property name="sessionFactory"> 
+            <ref bean="mancodbSessionFactory"/>
+        </property>
+    </bean>  
+
+
+    <bean 
+        id="mancodbSessionFactory" 
+        class="com.wavemaker.runtime.data.spring.ConfigurationAndSessionFactoryBean"
+        lazy-init="true">
+
+        <!-- A unique name for this SessionFactory's configuration -->
+        <property name="name" value="mancodb"/>
+        <property name="dataSource" ref="mancodbDataSource"/>
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${mancodb.dialect}</prop>
+                <prop key="hibernate.transaction.factory_class">
+                    org.hibernate.transaction.JDBCTransactionFactory
+                </prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+                
+            </props> 
+        </property>
+
+        <property name="mappingResources">
+            <list>
+
+<value>com/mancodb/data/Users.hbm.xml</value>
+<value>com/mancodb/data/IssueHistory.hbm.xml</value>
+<value>com/mancodb/data/Tenant.hbm.xml</value>
+<value>com/mancodb/data/DocumentType.hbm.xml</value>
+<value>com/mancodb/data/UserType.hbm.xml</value>
+<value>com/mancodb/data/Issues.hbm.xml</value>
+
+<value>com/mancodb/data/Users.ql.xml</value>
+<value>com/mancodb/data/app-queries.ql.xml</value>
+
+            </list>
+        </property>
+
+    </bean>
+
+
+    <!-- the data service bean instance is injected into the service bean -->
+    <bean 
+        id="mancodbDataService" 
+        class="com.wavemaker.runtime.data.spring.SpringDataServiceManager"
+        lazy-init="true">
+        <constructor-arg>
+            <!-- the value of the "name" property of the SessionFactory -->
+            <value>mancodb</value>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="mancodbHibernateTemplate"/>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="mancodbTxMgr"/>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="mancodbTaskMgr"/>
+        </constructor-arg>
+        <constructor-arg>
+            <map>
+                <entry key="useIndividualCRUDOperations" value="false"/>
+                <entry key="refreshEntities" value=""/> 
+            </map>
+        </constructor-arg>
+    </bean>
+
+
+    <bean 
+        id="mancodbTaskMgr"
+        class="com.wavemaker.runtime.data.DefaultTaskManager"
+        lazy-init="true"/>
+
+    <bean class="com.wavemaker.runtime.service.events.EventWire"
+        lazy-init="false">
+        <property name="serviceWire" ref="mancodbServiceWire"/>
+        <property name="eventListener">
+            <bean class="com.wavemaker.runtime.data.DataServiceEventListener"/>
+        </property>
+    </bean>
+
+    <bean id="mancodbServiceWire"
+        class="com.wavemaker.runtime.service.reflect.ReflectServiceWire"
+        lazy-init="false" scope="singleton">
+        <property name="serviceId" value="mancodb"/>
+        <property name="serviceType" ref="DataService"/>
+    </bean>
+
+</beans>

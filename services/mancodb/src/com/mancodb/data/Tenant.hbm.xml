@@ -1,0 +1,24 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.mancodb.data.Tenant" table="tenant" catalog="mancodb" dynamic-insert="false" dynamic-update="false">
+        <id name="idtenant" type="integer">
+            <column name="idtenant"/>
+            <generator class="identity"/>
+        </id>
+        <property name="tenantName" type="string">
+            <column name="tenant_name" length="45" not-null="true"/>
+        </property>
+        <property name="dniTenant" type="integer">
+            <column name="dni_tenant"/>
+        </property>
+        <property name="country" type="string">
+            <column name="country" length="45"/>
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="45"/>
+        </property>
+        <property name="telephone" type="string">
+            <column name="telephone" length="45"/>
+        </property>
+    </class>
+</hibernate-mapping>

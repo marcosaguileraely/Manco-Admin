@@ -1,0 +1,18 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.mancodb.data.UserType" table="user_type" catalog="mancodb" dynamic-insert="false" dynamic-update="false">
+        <id name="iduserType" type="integer">
+            <column name="iduser_type"/>
+            <generator class="identity"/>
+        </id>
+        <property name="userType" type="string">
+            <column name="user_type" length="45"/>
+        </property>
+        <set name="userses" inverse="true" cascade="">
+            <key>
+                <column name="user_type_iduser_type" not-null="true"/>
+            </key>
+            <one-to-many class="com.mancodb.data.Users"/>
+        </set>
+    </class>
+</hibernate-mapping>

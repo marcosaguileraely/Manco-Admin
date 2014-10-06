@@ -1,0 +1,33 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.mancodb.data.IssueHistory" table="issue_history" catalog="mancodb" dynamic-insert="false" dynamic-update="false">
+        <id name="idissueHistory" type="integer">
+            <column name="idissue_history"/>
+            <generator class="identity"/>
+        </id>
+        <property name="state" type="string">
+            <column name="state" length="50"/>
+        </property>
+        <property name="reporter" type="string">
+            <column name="reporter" length="45"/>
+        </property>
+        <property name="comment" type="string">
+            <column name="comment" length="65535" not-null="true"/>
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="created_date" length="19"/>
+        </property>
+        <property name="createdTime" type="time">
+            <column name="created_time" length="8"/>
+        </property>
+        <property name="updatedDate" type="timestamp">
+            <column name="updated_date" length="19"/>
+        </property>
+        <property name="picsHistory" type="string">
+            <column name="pics_history"/>
+        </property>
+        <many-to-one name="issues" class="com.mancodb.data.Issues">
+            <column name="issues_issue_id" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

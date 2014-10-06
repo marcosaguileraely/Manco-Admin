@@ -1,0 +1,13 @@
+{
+	"methods": [{
+		"name": "getUsersById",
+		"operationType": "hqlquery",
+		"parameters": [{
+			"name": "id",
+			"type": "java.lang.Integer"
+		}],
+		"returnType": "com.mancodb.data.Users"
+	}],
+	"serviceType": "JSON-RPC",
+	"serviceURL": "mancodb.json"
+}
