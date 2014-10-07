@@ -823,7 +823,7 @@ dojo.declare("mancoadmin", wm.Application, {
 	"name": "", 
 	"phoneGapLoginPage": "Login", 
 	"phoneMain": "", 
-	"projectSubVersion": "Alpha", 
+	"projectSubVersion": "Alpha0", 
 	"projectVersion": 1, 
 	"sessionExpirationHandler": "navigateToLogin", 
 	"studioVersion": "6.7.0.RELEASE", 
