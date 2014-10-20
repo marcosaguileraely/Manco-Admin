@@ -3,6 +3,17 @@
     <bean class="com.wavemaker.runtime.service.TypeManager" parent="typeManagerBase" scope="singleton" id="typeManager">
         <property name="types">
             <map merge="true">
+                <entry key="demo">
+                    <list>
+                        <value>com.wavemaker.runtime.server.DownloadResponse</value>
+                    </list>
+                </entry>
+                <entry key="manco_rep2">
+                    <list/>
+                </entry>
+                <entry key="manco_rep3">
+                    <list/>
+                </entry>
                 <entry key="mancodb">
                     <list>
                         <value>com.mancodb.data.DocumentType</value>
@@ -12,6 +23,9 @@
                         <value>com.mancodb.data.UserType</value>
                         <value>com.mancodb.data.Users</value>
                     </list>
+                </entry>
+                <entry key="securityService">
+                    <list/>
                 </entry>
             </map>
         </property>

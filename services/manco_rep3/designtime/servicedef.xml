@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<service xmlns="http://www.activegrid.com/namespaces/ServiceDefinitions/1.0" id="manco_rep3" class="manco_rep3" CRUDService="false" type="JavaService" springFile="manco_rep3.spring.xml">
+    <operation name="getReport">
+        <parameter name="idempresa" typeRef="java.lang.String" isList="false"/>
+        <return typeRef="com.wavemaker.runtime.server.DownloadResponse" isList="false"/>
+    </operation>
+    <dataobjects/>
+</service>

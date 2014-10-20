@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  *  mancodb.IssueHistory
- *  10/06/2014 16:55:22
+ *  10/19/2014 10:36:56
  * 
  */
 public class IssueHistory {

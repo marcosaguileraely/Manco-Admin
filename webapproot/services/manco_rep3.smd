@@ -1,0 +1,13 @@
+{
+	"methods": [{
+		"name": "getReport",
+		"operationType": null,
+		"parameters": [{
+			"name": "idempresa",
+			"type": "java.lang.String"
+		}],
+		"returnType": "com.wavemaker.runtime.server.DownloadResponse"
+	}],
+	"serviceType": "JSON-RPC",
+	"serviceURL": "manco_rep3.json"
+}

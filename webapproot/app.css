@@ -1,3 +1,14 @@
 html.WMApp body .gridCursor {
     cursor: pointer !important;
 }
+
+div#login_layoutBox {
+    background-image: url('resources/images/bg1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div#login_label1 {
+    background-color: #fff;
+    opacity: 0.7;
+}

@@ -21,5 +21,9 @@ dojo.declare("Usuarios", wm.Page, {
 	usersDojoGridSelect: function(inSender) {
 		this.ver_claveButton.enable();
 	},
+	button1Click: function(inSender) {
+		this.EmpresaSelectMenu1.clear();
+        this.usersLiveVariable1.clearData();
+	},
 	_end: 0
 });

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="demo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4e847ec3-43f1-49d6-a9d8-70805ae85443">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idempresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     issues.`issue_id` AS issues_issue_id,
+     issues.`name` AS issues_name,
+     issues.`description` AS issues_description,
+     issues.`issue_date` AS issues_issue_date,
+     issues.`issue_time` AS issues_issue_time,
+     issues.`issue_date_update` AS issues_issue_date_update,
+     issues.`prioridad` AS issues_prioridad,
+     issues.`reporter` AS issues_reporter,
+     issues.`url_pic` AS issues_url_pic,
+     users.`user` AS users_user,
+     tenant.`tenant_name` AS tenant_tenant_name,
+     issue_history.`idissue_history` AS issue_history_idissue_history,
+     issue_history.`state` AS issue_history_state,
+     issue_history.`created_date` AS issue_history_created_date,
+     tenant.`idtenant` AS tenant_idtenant
+FROM
+     `users` users INNER JOIN `issues` issues ON users.`idusers` = issues.`users_idusers`
+     INNER JOIN `tenant` tenant ON users.`tenant_id` = tenant.`idtenant`
+     INNER JOIN `issue_history` issue_history ON issues.`issue_id` = issue_history.`issues_issue_id`
+WHERE
+     tenant.idtenant = $P{idempresa}
+ORDER BY
+     issues.`issue_id` ASC, issue_history.idissue_history DESC]]>
+	</queryString>
+	<field name="issues_issue_id" class="java.lang.Integer"/>
+	<field name="issues_name" class="java.lang.String"/>
+	<field name="issues_description" class="java.lang.String"/>
+	<field name="issues_issue_date" class="java.sql.Date"/>
+	<field name="issues_issue_time" class="java.sql.Time"/>
+	<field name="issues_issue_date_update" class="java.sql.Timestamp"/>
+	<field name="issues_prioridad" class="java.lang.String"/>
+	<field name="issues_reporter" class="java.lang.String"/>
+	<field name="issues_url_pic" class="java.lang.String"/>
+	<field name="users_user" class="java.lang.String"/>
+	<field name="tenant_tenant_name" class="java.lang.String"/>
+	<field name="issue_history_idissue_history" class="java.lang.Integer"/>
+	<field name="issue_history_state" class="java.lang.String"/>
+	<field name="issue_history_created_date" class="java.sql.Timestamp"/>
+	<field name="tenant_idtenant" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="146" height="50" uuid="beb8966f-3446-444b-942a-e6bbd0ebec0e"/>
+				<imageExpression><![CDATA["http://www.mancoltda.com.co/images/sampledata/icetheme/logo.png"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="433" y="30" width="122" height="20" uuid="3c4d0a8b-ef6c-40f5-a6d9-da7a95418bba"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="9" width="255" height="20" uuid="a87ac262-2867-4b21-85b5-ce2adceb9617"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["REPORTE: ESTADOS DE ORDENES DE SERVICIOS"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="56" width="555" height="1" uuid="8fcaee51-f410-4dac-9321-bcb3e253618a"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="158" y="29" width="255" height="20" uuid="57ef0143-09a2-40d2-81fd-e45991cbcc37"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tenant_tenant_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="50" height="14" uuid="2134807f-1a8a-4d98-9f55-ffa12525b38b"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[#OS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="0" width="143" height="14" uuid="c83e51ec-431e-4dd6-b32e-0866c354ec04"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="0" width="63" height="14" uuid="c9945e24-b6b3-44fc-9656-e5b84e55db4e"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Fecha inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="0" width="108" height="14" uuid="1907cf67-be51-4879-ab1f-7730c2c0ed6c"/>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nombre servicio]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="13" width="555" height="1" uuid="513f9467-d8e1-470a-b649-74ad4d50ec74"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="483" y="0" width="71" height="13" uuid="36175e31-73d7-42a8-b722-44cbb929cea2"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="1" width="63" height="12" uuid="b177d034-9c0f-4705-a78a-c5846b4e81ec"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Fecha estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="50" height="12" uuid="92478fab-3036-493d-b0db-4f8f47edfc92"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issues_issue_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="50" y="0" width="108" height="12" uuid="2a305e05-86ad-4c5a-8982-0ca72c00f4a6"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issues_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement isPrintRepeatedValues="false" x="158" y="0" width="143" height="12" uuid="d920212e-445f-4ac9-8673-52ac3732f70e"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issues_description}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="301" y="0" width="63" height="12" uuid="2d2b380a-a2a1-45e6-8d77-a0d484b0b6fc"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issues_issue_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="0" width="71" height="13" uuid="1cde8ecb-0645-4826-98c5-5fc13f42afb0"/>
+				<textElement textAlignment="Center">
+					<font size="9" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issue_history_state}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="367" y="0" width="63" height="12" uuid="0996d79e-1f84-4e8d-a75a-b43572caa458"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issue_history_created_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="433" y="1" width="80" height="20" uuid="2b864600-0077-4bbb-bdf6-503ed29efae8"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="513" y="1" width="40" height="20" uuid="9934af18-a0fe-4909-a4f6-0597d9e4a10e"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

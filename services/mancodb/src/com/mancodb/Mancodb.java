@@ -2,6 +2,7 @@
 package com.mancodb;
 
 import java.util.List;
+import com.mancodb.data.Users;
 import com.wavemaker.json.type.TypeDefinition;
 import com.wavemaker.runtime.data.DataServiceManager;
 import com.wavemaker.runtime.data.DataServiceManagerAccess;
@@ -14,7 +15,7 @@ import com.wavemaker.runtime.service.TypedServiceReturn;
 
 /**
  *  Operations for service "mancodb"
- *  10/06/2014 16:56:02
+ *  10/19/2014 10:36:55
  * 
  */
 @SuppressWarnings("unchecked")
@@ -25,8 +26,8 @@ public class Mancodb
     private DataServiceManager dsMgr;
     private TaskManager taskMgr;
 
-    public com.mancodb.data.Users getUsersById(Integer id, PagingOptions pagingOptions) {
-        List<com.mancodb.data.Users> rtn = ((List<com.mancodb.data.Users> ) dsMgr.invoke(taskMgr.getQueryTask(), (MancodbConstants.getUsersByIdQueryName), id, pagingOptions));
+    public Users getUsersById(Integer id) {
+        List<Users> rtn = ((List<Users> ) dsMgr.invoke(taskMgr.getQueryTask(), (MancodbConstants.getUsersByIdQueryName), id));
         if (rtn.isEmpty()) {
             return null;
         } else {

@@ -18,6 +18,10 @@ alert("La clave del usuario seleccionado:\n\n"+pwd);
 usersDojoGridSelect: function(inSender) {
 this.ver_claveButton.enable();
 },
+button1Click: function(inSender) {
+this.EmpresaSelectMenu1.clear();
+this.usersLiveVariable1.clearData();
+},
 _end: 0
 });
 
@@ -37,7 +41,10 @@ liveView: ["wm.LiveView", {"dataType":"com.mancodb.data.Users","related":["docum
 {"caption":"DocumentType","sortable":true,"dataIndex":"documentType.documentType","type":"java.lang.String","displayType":"Text","required":false,"readonly":false,"includeLists":true,"includeForms":true,"order":1,"subType":null},
 {"caption":"IduserType","sortable":true,"dataIndex":"userType.iduserType","type":"java.lang.Integer","displayType":"Number","required":true,"readonly":true,"includeLists":true,"includeForms":true,"order":0,"subType":null},
 {"caption":"UserType","sortable":true,"dataIndex":"userType.userType","type":"java.lang.String","displayType":"Text","required":false,"readonly":false,"includeLists":true,"includeForms":true,"order":1,"subType":null}
-]}, {}]
+]}, {}],
+binding: ["wm.Binding", {}, {}, {
+wire: ["wm.Wire", {"expression":undefined,"source":"EmpresaSelectMenu1.dataValue","targetProperty":"filter.tenantId"}, {}]
+}]
 }],
 tipoIdentificacionLV: ["wm.LiveVariable", {"inFlightBehavior":"executeLast","type":"com.mancodb.data.DocumentType"}, {}, {
 liveView: ["wm.LiveView", {"dataType":"com.mancodb.data.DocumentType","view":[
@@ -53,13 +60,17 @@ liveView: ["wm.LiveView", {"dataType":"com.mancodb.data.UserType","view":[
 }],
 listaEmpresasLV: ["wm.LiveVariable", {"inFlightBehavior":"executeLast","type":"com.mancodb.data.Tenant"}, {}, {
 liveView: ["wm.LiveView", {"dataType":"com.mancodb.data.Tenant","view":[
+{"caption":"DniTenant","sortable":true,"dataIndex":"dniTenant","type":"java.lang.Integer","displayType":"Number","required":false,"readonly":false,"includeLists":true,"includeForms":true,"order":2,"subType":null},
+{"caption":"Country","sortable":true,"dataIndex":"country","type":"java.lang.String","displayType":"Text","required":false,"readonly":false,"includeLists":true,"includeForms":true,"order":3,"subType":null},
+{"caption":"Address","sortable":true,"dataIndex":"address","type":"java.lang.String","displayType":"Text","required":false,"readonly":false,"includeLists":true,"includeForms":true,"order":4,"subType":null},
+{"caption":"Telephone","sortable":true,"dataIndex":"telephone","type":"java.lang.String","displayType":"Text","required":false,"readonly":false,"includeLists":true,"includeForms":true,"order":5,"subType":null},
 {"caption":"Idtenant","sortable":true,"dataIndex":"idtenant","type":"java.lang.Integer","displayType":"Number","required":true,"readonly":true,"includeLists":true,"includeForms":true,"order":1000,"subType":null,"widthUnits":"px"},
 {"caption":"TenantName","sortable":true,"dataIndex":"tenantName","type":"java.lang.String","displayType":"Text","required":true,"readonly":false,"includeLists":true,"includeForms":true,"order":1001,"subType":null,"widthUnits":"px"}
 ]}, {}]
 }],
-usersDialog: ["wm.DesignableDialog", {"border":"1","desktopHeight":"440px","height":"440px","title":"Usuarios","width":"580px","containerWidgetId":"containerWidget","buttonBarId":"buttonBar"}, {}, {
+usersDialog: ["wm.DesignableDialog", {"border":"1","buttonBarId":"buttonBar","containerWidgetId":"containerWidget","desktopHeight":"440px","height":"440px","title":"Usuarios","width":"580px"}, {}, {
 containerWidget: ["wm.Container", {"_classes":{"domNode":["wmdialogcontainer","MainContent"]},"autoScroll":true,"height":"100%","horizontalAlign":"left","padding":"5","verticalAlign":"middle","width":"100%"}, {}, {
-usersLiveForm1: ["wm.LiveForm", {"alwaysPopulateEditors":true,"fitToContentHeight":true,"height":"292px","horizontalAlign":"left","liveEditing":false,"margin":"4","verticalAlign":"top"}, {"onSuccess":"usersLivePanel1.popupLiveFormSuccess","onBeginInsert":"usersLiveForm1BeginInsert","onBeginUpdate":"usersLiveForm1BeginUpdate"}, {
+usersLiveForm1: ["wm.LiveForm", {"alwaysPopulateEditors":true,"fitToContentHeight":true,"height":"292px","horizontalAlign":"left","liveEditing":false,"margin":"4","verticalAlign":"top"}, {"onBeginInsert":"usersLiveForm1BeginInsert","onBeginUpdate":"usersLiveForm1BeginUpdate","onSuccess":"usersLivePanel1.popupLiveFormSuccess"}, {
 binding: ["wm.Binding", {}, {}, {
 wire: ["wm.Wire", {"expression":undefined,"source":"usersDojoGrid.selectedItem","targetProperty":"dataSet"}, {}]
 }],
@@ -90,7 +101,7 @@ createdDateEditor1: ["wm.DateTime", {"caption":"CreatedDate","captionAlign":"rig
 updatedDateEditor1: ["wm.DateTime", {"caption":"UpdatedDate","captionAlign":"right","captionSize":"140px","dateMode":"Date","desktopHeight":"32px","emptyValue":"zero","formField":"updatedDate","height":"32px","showing":false,"width":"100%"}, {}]
 }]
 }],
-buttonBar: ["wm.ButtonBarPanel", {"border":"1,0,0,0","borderColor":"#eeeeee","height":"60px"}, {}, {
+buttonBar: ["wm.ButtonBarPanel", {"border":"1,0,0,0","borderColor":"#eeeeee","desktopHeight":"60px","height":"60px"}, {}, {
 usersSaveButton: ["wm.Button", {"border":"1","caption":"Guardar","height":"30px"}, {"onclick":"usersLiveForm1.saveDataIfValid"}, {
 binding: ["wm.Binding", {}, {}, {
 wire: ["wm.Wire", {"source":"usersLiveForm1.invalid","targetId":null,"targetProperty":"disabled"}, {}]
@@ -112,6 +123,14 @@ wire1: ["wm.Wire", {"source":"usersLiveForm1","targetId":null,"targetProperty":"
 wire2: ["wm.Wire", {"source":"usersDojoGrid","targetId":null,"targetProperty":"dataGrid"}, {}],
 wire3: ["wm.Wire", {"source":"usersSaveButton","targetId":null,"targetProperty":"saveButton"}, {}]
 }],
+panel1: ["wm.Panel", {"height":"48px","horizontalAlign":"left","layoutKind":"left-to-right","verticalAlign":"middle","width":"100%"}, {}, {
+EmpresaSelectMenu1: ["wm.SelectMenu", {"caption":"Empresa","captionAlign":"right","dataField":"idtenant","dataType":"com.mancodb.data.Tenant","dataValue":undefined,"desktopHeight":"34px","displayField":"tenantName","displayValue":"","height":"34px","width":"300px"}, {"onchange":"usersLiveVariable1"}, {
+binding: ["wm.Binding", {}, {}, {
+wire: ["wm.Wire", {"expression":undefined,"source":"listaEmpresasLV","targetProperty":"dataSet"}, {}]
+}]
+}],
+button1: ["wm.Button", {"border":"1","caption":undefined,"desktopHeight":"33px","height":"33px","imageIndex":35,"imageList":"app.silkIconList","width":"60px"}, {"onclick":"button1Click"}]
+}],
 usersDojoGrid: ["wm.DojoGrid", {"_classes":{"domNode":["gridCursor"]},"columns":[
 {"show":true,"field":"idusers","title":"Cod. usuario","width":"80px","align":"center","formatFunc":"","mobileColumn":false},
 {"show":true,"field":"noDocument","title":"No. documento","width":"120px","align":"left","formatFunc":"","mobileColumn":false},
@@ -127,7 +146,7 @@ usersDojoGrid: ["wm.DojoGrid", {"_classes":{"domNode":["gridCursor"]},"columns":
 {"show":false,"field":"userType.iduserType","title":"IduserType","width":"80px","align":"right","formatFunc":"","mobileColumn":false},
 {"show":false,"field":"userType.userType","title":"UserType","width":"100%","align":"left","formatFunc":"","mobileColumn":false},
 {"show":false,"field":"PHONE COLUMN","title":"-","width":"100%","align":"left","expression":"\"<div class='MobileRowTitle'>\" +\n\"Cod. usuario: \" + ${idusers} +\n\"</div>\"\n\n+ \"<div class='MobileRow'>\" +\n\"No. documento: \" + ${noDocument}\n + \"</div>\"\n\n+ \"<div class='MobileRow'>\" +\n\"Nombres: \" + ${name}\n + \"</div>\"\n\n+ \"<div class='MobileRow'>\" +\n\"Apellidos: \" + ${lastname}\n + \"</div>\"\n\n+ \"<div class='MobileRow'>\" +\n\"Usuario: \" + ${user}\n + \"</div>\"\n\n+ \"<div class='MobileRow'>\" +\n\"Creado: \" + ${wm.runtimeId}.formatCell(\"createdDate\", ${createdDate}, ${this}, ${wm.rowId})\n + \"</div>\"\n\n","mobileColumn":true}
-],"dsType":"com.mancodb.data.Users","height":"100%","styles":{}}, {"onCellDblClick":"usersLivePanel1.popupLivePanelEdit","onSelect":"usersDojoGridSelect"}, {
+],"dsType":"com.mancodb.data.Users","height":"100%","minDesktopHeight":60,"styles":{}}, {"onCellDblClick":"usersLivePanel1.popupLivePanelEdit","onSelect":"usersDojoGridSelect"}, {
 binding: ["wm.Binding", {}, {}, {
 wire: ["wm.Wire", {"expression":undefined,"source":"usersLiveVariable1","targetProperty":"dataSet"}, {}]
 }]
