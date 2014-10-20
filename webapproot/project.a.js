@@ -723,6 +723,53 @@ wm.types = {
 			"liveService": true,
 			"service": "mancodb"
 		},
+		"com.wavemaker.runtime.server.DownloadResponse": {
+			"fields": {
+				"contentLength": {
+					"exclude": [],
+					"fieldOrder": 0,
+					"fieldSubType": null,
+					"include": [],
+					"isList": false,
+					"noChange": [],
+					"required": true,
+					"type": "java.lang.Integer"
+				},
+				"contentType": {
+					"exclude": [],
+					"fieldOrder": 1,
+					"fieldSubType": null,
+					"include": [],
+					"isList": false,
+					"noChange": [],
+					"required": true,
+					"type": "java.lang.String"
+				},
+				"contents": {
+					"exclude": [],
+					"fieldOrder": 2,
+					"fieldSubType": null,
+					"include": [],
+					"isList": false,
+					"noChange": [],
+					"required": true,
+					"type": "java.io.InputStream"
+				},
+				"fileName": {
+					"exclude": [],
+					"fieldOrder": 3,
+					"fieldSubType": null,
+					"include": [],
+					"isList": false,
+					"noChange": [],
+					"required": true,
+					"type": "java.lang.String"
+				}
+			},
+			"internal": false,
+			"liveService": false,
+			"service": "demo"
+		},
 		"double": {
 			"internal": true,
 			"primitiveType": "Number"
@@ -816,16 +863,18 @@ dojo.declare("mancoadmin", wm.Application, {
 	"eventDelay": 0, 
 	"hintDelay": 1500, 
 	"i18n": false, 
-	"isSecurityEnabled": false, 
+	"isLoginPageEnabled": true, 
+	"isSSLUsed": false, 
+	"isSecurityEnabled": true, 
 	"main": "Main", 
 	"manageHistory": true, 
 	"manageURL": false, 
 	"name": "", 
 	"phoneGapLoginPage": "Login", 
 	"phoneMain": "", 
-	"projectSubVersion": "Alpha0", 
+	"projectSubVersion": "Alpha4", 
 	"projectVersion": 1, 
-	"sessionExpirationHandler": "navigateToLogin", 
+	"sessionExpirationHandler": "nothing", 
 	"studioVersion": "6.7.0.RELEASE", 
 	"tabletMain": "", 
 	"theme": "wm.base.widget.themes.Bootstrap", 
@@ -844,5 +893,14 @@ mancoadmin.extend({
 });
 mancoadmin.prototype._css = 'html.WMApp body .gridCursor {\
 cursor: pointer !important;\
+}\
+div#login_layoutBox {\
+background-image: url("resources/images/bg1.jpg");\
+background-repeat: no-repeat;\
+background-size: cover;\
+}\
+div#login_label1 {\
+background-color: #fff;\
+opacity: 0.7;\
 }\
 ';

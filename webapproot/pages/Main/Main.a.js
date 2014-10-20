@@ -8,6 +8,16 @@ this.usertypeLiveVariable1.update();
 appMenuTipo_UsuarioClick: function(inSender /*,args*/) {
 this.documenttypeLiveVariable1.update();
 },
+rep1ButtonClick: function(inSender) {
+var id_empresa = this.empresaSelect2.getDataValue();
+url= "services/manco_rep2.download?method=getReport&idempresa="+id_empresa;
+window.open(url,"_BLANK");
+},
+rep2ButtonClick: function(inSender) {
+var id_usuario = this.userSelect3.getDataValue();
+url= "services/manco_rep3.download?method=getReport&idempresa="+id_usuario;
+window.open(url,"_BLANK");
+},
 _end: 0
 });
 
@@ -65,9 +75,25 @@ liveView: ["wm.LiveView", {"dataType":"com.mancodb.data.DocumentType","view":[
 {"caption":"DocumentType","sortable":true,"dataIndex":"documentType","type":"java.lang.String","displayType":"Text","required":false,"readonly":false,"includeLists":true,"includeForms":true,"order":1,"subType":null}
 ]}, {}]
 }],
+userReportsLiveVariable: ["wm.LiveVariable", {"autoUpdate":false,"inFlightBehavior":"executeLast","maxResults":50,"startUpdate":false,"type":"com.mancodb.data.Users"}, {}, {
+binding: ["wm.Binding", {}, {}, {
+wire: ["wm.Wire", {"expression":undefined,"source":"empresaSelect3.dataValue","targetProperty":"filter.tenantId"}, {}]
+}],
+liveView: ["wm.LiveView", {"dataType":"com.mancodb.data.Users","view":[
+{"caption":"Idusers","sortable":true,"dataIndex":"idusers","type":"java.lang.Integer","displayType":"Number","required":true,"readonly":true,"includeLists":true,"includeForms":true,"order":0,"subType":null},
+{"caption":"NoDocument","sortable":true,"dataIndex":"noDocument","type":"java.lang.Integer","displayType":"Number","required":true,"readonly":false,"includeLists":true,"includeForms":true,"order":1,"subType":null},
+{"caption":"Name","sortable":true,"dataIndex":"name","type":"java.lang.String","displayType":"Text","required":true,"readonly":false,"includeLists":true,"includeForms":true,"order":2,"subType":null},
+{"caption":"Lastname","sortable":true,"dataIndex":"lastname","type":"java.lang.String","displayType":"Text","required":true,"readonly":false,"includeLists":true,"includeForms":true,"order":3,"subType":null},
+{"caption":"User","sortable":true,"dataIndex":"user","type":"java.lang.String","displayType":"Text","required":true,"readonly":false,"includeLists":true,"includeForms":true,"order":4,"subType":null},
+{"caption":"Pwd","sortable":true,"dataIndex":"pwd","type":"java.lang.String","displayType":"Text","required":true,"readonly":false,"includeLists":true,"includeForms":true,"order":5,"subType":null},
+{"caption":"CreatedDate","sortable":true,"dataIndex":"createdDate","type":"java.util.Date","displayType":"Date","required":false,"readonly":false,"includeLists":true,"includeForms":true,"order":6,"subType":null},
+{"caption":"UpdatedDate","sortable":true,"dataIndex":"updatedDate","type":"java.util.Date","displayType":"Date","required":false,"readonly":false,"includeLists":true,"includeForms":true,"order":7,"subType":null},
+{"caption":"TenantId","sortable":true,"dataIndex":"tenantId","type":"java.lang.Integer","displayType":"Number","required":true,"readonly":false,"includeLists":true,"includeForms":true,"order":8,"subType":null}
+]}, {}]
+}],
 tenantDialog: ["wm.DesignableDialog", {"border":"1","buttonBarId":"buttonBar","containerWidgetId":"containerWidget","desktopHeight":"350px","height":"350px","title":"Empresas","width":"500px"}, {}, {
 containerWidget: ["wm.Container", {"_classes":{"domNode":["wmdialogcontainer","MainContent"]},"autoScroll":true,"height":"100%","horizontalAlign":"left","padding":"5","verticalAlign":"top","width":"100%"}, {}, {
-tenantLiveForm1: ["wm.LiveForm", {"alwaysPopulateEditors":true,"fitToContentHeight":true,"height":"200px","horizontalAlign":"left","liveEditing":false,"margin":"4","verticalAlign":"top"}, {"onSuccess":"tenantLivePanel1.popupLiveFormSuccess"}, {
+tenantLiveForm1: ["wm.LiveForm", {"alwaysPopulateEditors":true,"fitToContentHeight":true,"height":"202px","horizontalAlign":"left","liveEditing":false,"margin":"4","verticalAlign":"top"}, {"onSuccess":"tenantLivePanel1.popupLiveFormSuccess"}, {
 binding: ["wm.Binding", {}, {}, {
 wire: ["wm.Wire", {"expression":undefined,"source":"tenantDojoGrid.selectedItem","targetProperty":"dataSet"}, {}]
 }],
@@ -88,14 +114,14 @@ wire: ["wm.Wire", {"source":"tenantLiveForm1.invalid","targetId":null,"targetPro
 tenantCancelButton: ["wm.Button", {"border":"1","caption":"Cancelar","height":"30px"}, {"onclick":"tenantDialog.hide","onclick1":"tenantLiveForm1.cancelEdit"}]
 }]
 }],
-TipoUsuariosDialog1: ["wm.DesignableDialog", {"border":"1","desktopHeight":"500px","height":"500px","styles":{},"title":"Tipo Usuarios","containerWidgetId":"containerWidget1","buttonBarId":"buttonBar"}, {}, {
+TipoUsuariosDialog1: ["wm.DesignableDialog", {"border":"1","buttonBarId":"buttonBar1","containerWidgetId":"containerWidget1","desktopHeight":"500px","height":"500px","styles":{},"title":"Tipo Usuarios"}, {}, {
 containerWidget1: ["wm.Container", {"_classes":{"domNode":["wmdialogcontainer","MainContent"]},"autoScroll":true,"height":"100%","horizontalAlign":"left","padding":"5","verticalAlign":"top","width":"100%"}, {}, {
 usertypeLivePanel1: ["wm.LivePanel", {"horizontalAlign":"left","layoutKind":"left-to-right","verticalAlign":"top"}, {}, {
 usertypeDojoGrid: ["wm.DojoGrid", {"_classes":{"domNode":["gridCursor"]},"columns":[
 {"show":false,"field":"iduserType","title":"IduserType","width":"80px","align":"right","formatFunc":"","mobileColumn":false},
 {"show":true,"field":"userType","title":"Tipo","width":"100%","align":"left","formatFunc":"","mobileColumn":false},
 {"show":false,"field":"PHONE COLUMN","title":"-","width":"100%","align":"left","expression":"\"<div class='MobileRowTitle'>\" +\n\"Tipo: \" + ${userType} +\n\"</div>\"\n\n","mobileColumn":true}
-],"dsType":"com.mancodb.data.UserType","height":"100%","styles":{},"width":"200px"}, {}, {
+],"dsType":"com.mancodb.data.UserType","height":"100%","localizationStructure":{},"minDesktopHeight":60,"styles":{},"width":"200px"}, {}, {
 binding: ["wm.Binding", {}, {}, {
 wire: ["wm.Wire", {"source":"usertypeLiveVariable1","targetProperty":"dataSet"}, {}]
 }]
@@ -133,18 +159,18 @@ wire: ["wm.Wire", {"expression":undefined,"source":"usertypeLiveForm1EditPanel.f
 }]
 }]
 }],
-buttonBar: ["wm.ButtonBarPanel", {"border":"1,0,0,0","borderColor":"#eeeeee","height":"60px"}, {}, {
+buttonBar1: ["wm.ButtonBarPanel", {"border":"1,0,0,0","borderColor":"#eeeeee","desktopHeight":"60px","height":"60px"}, {}, {
 closeTipoUsuariosDialog: ["wm.Button", {"_classes":{"domNode":["Danger"]},"border":"1","borderColor":"#bd362f","caption":"[X] Cerrar","height":"30px"}, {"onclick":"TipoUsuariosDialog1.hide"}]
 }]
 }],
-TipoDocumentoDialog1: ["wm.DesignableDialog", {"border":"1","desktopHeight":"500px","height":"500px","title":"Tipo Documento","containerWidgetId":"containerWidget2","buttonBarId":"buttonBar"}, {}, {
+TipoDocumentoDialog1: ["wm.DesignableDialog", {"border":"1","buttonBarId":"buttonBar2","containerWidgetId":"containerWidget2","desktopHeight":"500px","height":"500px","title":"Tipo Documento"}, {}, {
 containerWidget2: ["wm.Container", {"_classes":{"domNode":["wmdialogcontainer","MainContent"]},"autoScroll":true,"height":"100%","horizontalAlign":"left","padding":"5","verticalAlign":"top","width":"100%"}, {}, {
 documenttypeLivePanel1: ["wm.LivePanel", {"horizontalAlign":"left","layoutKind":"left-to-right","verticalAlign":"top"}, {}, {
 documenttypeDojoGrid: ["wm.DojoGrid", {"columns":[
 {"show":false,"field":"iddocumentType","title":"IddocumentType","width":"80px","align":"right","formatFunc":"","mobileColumn":false},
 {"show":true,"field":"documentType","title":"Tipo Documento","width":"100%","align":"left","formatFunc":"","mobileColumn":false},
 {"show":false,"field":"PHONE COLUMN","title":"-","width":"100%","align":"left","expression":"\"<div class='MobileRowTitle'>\" +\n\"Tipo Documento: \" + ${documentType} +\n\"</div>\"\n\n","mobileColumn":true}
-],"dsType":"com.mancodb.data.DocumentType","height":"100%","width":"200px"}, {}, {
+],"dsType":"com.mancodb.data.DocumentType","height":"100%","minDesktopHeight":60,"width":"200px"}, {}, {
 binding: ["wm.Binding", {}, {}, {
 wire: ["wm.Wire", {"source":"documenttypeLiveVariable1","targetProperty":"dataSet"}, {}]
 }]
@@ -182,13 +208,13 @@ wire: ["wm.Wire", {"expression":undefined,"source":"documenttypeLiveForm1EditPan
 }]
 }]
 }],
-buttonBar: ["wm.ButtonBarPanel", {"border":"1,0,0,0","borderColor":"#eeeeee","height":"60px"}, {}, {
+buttonBar2: ["wm.ButtonBarPanel", {"border":"1,0,0,0","borderColor":"#eeeeee","desktopHeight":"60px","height":"60px"}, {}, {
 closeTipoDocDialog: ["wm.Button", {"_classes":{"domNode":["Danger"]},"border":"1","borderColor":"#bd362f","caption":"[X] Cerrar","height":"30px"}, {"onclick":"TipoDocumentoDialog1.hide"}]
 }]
 }],
 layoutBox1: ["wm.Layout", {"horizontalAlign":"center","layoutKind":"left-to-right","verticalAlign":"top"}, {}, {
 panel1: ["wm.Panel", {"border":"0,1,0,0","borderColor":"#999999","height":"100%","horizontalAlign":"left","minDesktopHeight":600,"minHeight":600,"minWidth":900,"verticalAlign":"top","width":"75%"}, {}, {
-panel2: ["wm.HeaderContentPanel", {"border":"0,0,1,0","height":"65px","horizontalAlign":"left","layoutKind":"left-to-right","padding":"0,10,0,10","verticalAlign":"middle","width":"100%"}, {}, {
+panel2: ["wm.HeaderContentPanel", {"border":"0,0,1,0","height":"65px","horizontalAlign":"left","layoutKind":"left-to-right","lock":true,"padding":"0,10,0,10","verticalAlign":"middle","width":"100%"}, {}, {
 picture1: ["wm.Picture", {"aspect":"h","height":"50px","source":"http://www.mancoltda.com.co/images/sampledata/icetheme/logo.png","width":"254px"}, {}],
 panel5: ["wm.Panel", {"height":"100%","horizontalAlign":"left","verticalAlign":"top","width":"100%"}, {}],
 panel10: ["wm.Panel", {"height":"100%","horizontalAlign":"left","styles":{},"verticalAlign":"middle","width":"300px"}, {}, {
@@ -197,18 +223,18 @@ text1: ["wm.Text", {"dataValue":undefined,"desktopHeight":"32px","displayValue":
 picture5: ["wm.Picture", {"height":"22px","source":"lib/images/silkIcons/zoom.png","width":"16px"}, {}]
 }]
 }],
-logoutButton: ["wm.Button", {"border":"1","caption":"Salir","imageIndex":42,"imageList":"app.silkIconList","margin":"2","styles":{}}, {"onclick":"varTemplateLogout"}]
+logoutButton: ["wm.Button", {"border":"1","caption":"Salir","height":"30px","imageIndex":42,"imageList":"app.silkIconList","margin":"2","styles":{}}, {"onclick":"varTemplateLogout"}]
 }],
 panel3: ["wm.Panel", {"height":"100%","horizontalAlign":"left","layoutKind":"left-to-right","styles":{},"verticalAlign":"top","width":"100%"}, {}, {
-left_menu: ["wm.Panel", {"height":"100%","horizontalAlign":"left","verticalAlign":"top","width":"120px"}, {}, {
+left_menu: ["wm.Panel", {"height":"100%","horizontalAlign":"left","lock":true,"verticalAlign":"top","width":"120px"}, {}, {
 appMenu: ["wm.DojoMenu", {"_classes":{"domNode":["ClickableDojoMenu"]},"border":"1","fullStructure":[
 {"label":"Inicio","separator":undefined,"defaultLabel":"Inicio","iconClass":"app_silkIconList_58","imageList":"app.silkIconList","idInPage":undefined,"isCheckbox":false,"onClick":"gotoHome","children":[]},
 {"label":"Empresas","separator":undefined,"defaultLabel":"Empresas","iconClass":"app_silkIconList_79","imageList":"app.silkIconList","idInPage":undefined,"isCheckbox":false,"onClick":"gotoTenant","children":[]},
 {"label":"Usuarios","separator":undefined,"defaultLabel":"Usuarios","iconClass":"app_silkIconList_54","imageList":"app.silkIconList","idInPage":undefined,"isCheckbox":false,"onClick":"gotoUsers","children":[]},
 {"label":"Reportes","separator":undefined,"defaultLabel":"Reportes","iconClass":"app_silkIconList_23","imageList":"app.silkIconList","idInPage":undefined,"isCheckbox":false,"onClick":"gotoReports","children":[]},
 {"label":"Extras","separator":undefined,"defaultLabel":"Extras","iconClass":"app_silkIconList_49","imageList":"app.silkIconList","idInPage":undefined,"isCheckbox":false,"onClick":undefined,"children":[
-{"label":"Tipo Identificacion","separator":undefined,"defaultLabel":"Tipo Identificacion","iconClass":"app_silkIconList_17","imageList":"app.silkIconList","idInPage":undefined,"isCheckbox":false,"onClick":"appMenuTipo_IdentificacionClick","children":[],"onClick1":"TipoUsuariosDialog1.show"},
-{"label":"Tipo Usuario","separator":undefined,"defaultLabel":"Tipo Usuario","iconClass":"app_silkIconList_10","imageList":"app.silkIconList","idInPage":undefined,"isCheckbox":false,"onClick":"appMenuTipo_UsuarioClick","children":[],"onClick1":"TipoDocumentoDialog1.show"}
+{"label":"Tipo Identificacion","separator":undefined,"defaultLabel":"Tipo Identificacion","iconClass":"app_silkIconList_17","imageList":"app.silkIconList","idInPage":undefined,"isCheckbox":false,"onClick":"appMenuTipo_IdentificacionClick","children":[],"onClick1":"TipoDocumentoDialog1.show"},
+{"label":"Tipo Usuario","separator":undefined,"defaultLabel":"Tipo Usuario","iconClass":"app_silkIconList_10","imageList":"app.silkIconList","idInPage":undefined,"isCheckbox":false,"onClick":"appMenuTipo_UsuarioClick","children":[],"onClick1":"TipoUsuariosDialog1.show"}
 ]}
 ],"height":"100%","localizationStructure":{},"padding":"20,0,0,0","styles":{},"transparent":false,"vertical":true}, {}]
 }],
@@ -216,10 +242,7 @@ panel4: ["wm.Panel", {"height":"100%","horizontalAlign":"left","verticalAlign":"
 tabLayers1: ["wm.TabLayers", {}, {}, {
 home_layer: ["wm.Layer", {"border":"1","borderColor":"#dddddd","caption":"Inicio","horizontalAlign":"left","layoutKind":"left-to-right","themeStyleType":"ContentPanel","verticalAlign":"top"}, {}, {
 dashboard1: ["wm.Dashboard", {"margin":"4","styles":{},"portlets":[
-{"id":"portlet","title":"Total empresas","page":"","isOpen":true,"isClosable":false,"x":0,"y":0},
-{"id":"portlet_3","title":"Logrados x Funcionario","page":"","isOpen":true,"isClosable":true,"x":1,"y":0},
-{"id":"portlet_4","title":"Proyecto + Avanzado","page":"","isOpen":true,"isClosable":true,"x":2,"y":0},
-{"id":"portlet_5","title":"Pendientes x Funcionario","page":"","isOpen":true,"isClosable":true,"x":1,"y":1}
+{"id":"portlet","title":"Total empresas (demo)","page":"Dash1","isOpen":true,"isClosable":false,"x":0,"y":0}
 ]}, {}]
 }],
 tenant_layer: ["wm.Layer", {"border":"1","borderColor":"#dddddd","caption":"Empresas","horizontalAlign":"left","styles":{},"themeStyleType":"ContentPanel","verticalAlign":"top"}, {}, {
@@ -261,7 +284,41 @@ wire: ["wm.Wire", {"source":"tenantDojoGrid.emptySelection","targetId":null,"tar
 users_layer: ["wm.Layer", {"border":"1","borderColor":"#dddddd","caption":"Usuarios","horizontalAlign":"left","themeStyleType":"ContentPanel","verticalAlign":"top"}, {}, {
 pageUsuarios: ["wm.PageContainer", {"deferLoad":true,"pageName":"Usuarios","styles":{},"subpageEventlist":{},"subpageMethodlist":{},"subpageProplist":{}}, {}]
 }],
-reports_layer: ["wm.Layer", {"border":"1","borderColor":"#dddddd","caption":"Reportes","horizontalAlign":"left","themeStyleType":"ContentPanel","verticalAlign":"top"}, {}]
+reports_layer: ["wm.Layer", {"border":"1","borderColor":"#dddddd","caption":"Reportes","horizontalAlign":"center","padding":"5","styles":{},"themeStyleType":"ContentPanel","verticalAlign":"top"}, {}, {
+accordionLayers1: ["wm.AccordionLayers", {"border":"0","styles":{}}, {}, {
+rep1: ["wm.Layer", {"border":"1","borderColor":"#e5e5e5","caption":"1. Reporte General","horizontalAlign":"left","padding":"10","styles":{},"themeStyleType":"ContentPanel","verticalAlign":"top"}, {}, {
+empresaSelect4: ["wm.SelectMenu", {"caption":"Empresa","dataField":"idtenant","dataType":"com.mancodb.data.Tenant","dataValue":undefined,"disabled":true,"displayField":"tenantName","displayValue":"","height":"30px","styles":{},"width":"300px"}, {}, {
+binding: ["wm.Binding", {}, {}, {
+wire: ["wm.Wire", {"expression":undefined,"source":"tenantLiveVariable1","targetProperty":"dataSet"}, {}]
+}]
+}],
+button1: ["wm.Button", {"border":"1","caption":"Generar y Guardar","desktopHeight":"36px","disabled":true,"height":"36px","imageIndex":41,"imageList":"app.silkIconList","styles":{},"width":"300px"}, {}]
+}],
+rep2: ["wm.Layer", {"border":"1","borderColor":"#e5e5e5","caption":"2. Reporte: Estado ordenes de servicio","horizontalAlign":"left","padding":"10","styles":{},"themeStyleType":"ContentPanel","verticalAlign":"top"}, {}, {
+empresaSelect2: ["wm.SelectMenu", {"caption":"Empresa","dataField":"idtenant","dataType":"com.mancodb.data.Tenant","dataValue":undefined,"displayField":"tenantName","displayValue":"","height":"30px","styles":{},"width":"300px"}, {}, {
+binding: ["wm.Binding", {}, {}, {
+wire: ["wm.Wire", {"expression":undefined,"source":"tenantLiveVariable1","targetProperty":"dataSet"}, {}]
+}]
+}],
+rep1Button: ["wm.Button", {"border":"1","caption":"Generar y Guardar","desktopHeight":"36px","height":"36px","imageIndex":41,"imageList":"app.silkIconList","styles":{},"width":"300px"}, {"onclick":"rep1ButtonClick"}]
+}],
+rep3: ["wm.Layer", {"border":"1","borderColor":"#e5e5e5","caption":"3. Reporte: Ordenes por Técnico","horizontalAlign":"left","padding":"10","styles":{},"themeStyleType":"ContentPanel","verticalAlign":"top"}, {}, {
+empresaSelect3: ["wm.SelectMenu", {"caption":"Empresa","dataField":"idtenant","dataType":"com.mancodb.data.Tenant","dataValue":undefined,"displayField":"tenantName","displayValue":"","height":"30px","styles":{},"width":"300px"}, {"onchange":"userReportsLiveVariable"}, {
+binding: ["wm.Binding", {}, {}, {
+wire: ["wm.Wire", {"expression":undefined,"source":"tenantLiveVariable1","targetProperty":"dataSet"}, {}]
+}]
+}],
+userSelect3: ["wm.SelectMenu", {"caption":"Usuarios","dataField":"idusers","dataType":"com.mancodb.data.Users","dataValue":undefined,"displayExpression":"${name}+\" \"+${lastname}","displayField":"name","displayValue":"","height":"30px","width":"300px"}, {}, {
+binding: ["wm.Binding", {}, {}, {
+wire: ["wm.Wire", {"expression":undefined,"source":"userReportsLiveVariable","targetProperty":"dataSet"}, {}]
+}]
+}],
+rep2Button: ["wm.Button", {"border":"1","caption":"Generar y Guardar","desktopHeight":"36px","height":"36px","imageIndex":15,"imageList":"app.silkIconList","width":"300px"}, {"onclick":"rep2ButtonClick"}]
+}],
+rep4: ["wm.Layer", {"border":"1","borderColor":"#e5e5e5","caption":"4. Reporte: Técnico por Proyecto","horizontalAlign":"left","themeStyleType":"ContentPanel","verticalAlign":"top"}, {}],
+layer5: ["wm.Layer", {"border":"1","borderColor":"#e5e5e5","caption":"5. Reporte: Proyecto general","horizontalAlign":"left","themeStyleType":"ContentPanel","verticalAlign":"top"}, {}]
+}]
+}]
 }]
 }]
 }],

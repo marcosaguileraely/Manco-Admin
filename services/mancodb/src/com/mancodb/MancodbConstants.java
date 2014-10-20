@@ -5,7 +5,7 @@ package com.mancodb;
 
 /**
  *  Query names for service "mancodb"
- *  10/06/2014 16:56:02
+ *  10/19/2014 10:36:55
  * 
  */
 public class MancodbConstants {
